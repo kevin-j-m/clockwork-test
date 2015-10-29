@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Clockwork::Test::VERSION
   spec.authors       = ["Kevin Murphy"]
   spec.email         = ["murphy.kevin.mail@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = "Test clockwork scheduled jobs"
+  spec.description   = "Run clockwork jobs in a test environment and assert jobs are run as expected"
+  spec.homepage      = "https://github.com/kevin-j-m/clockwork-test"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -21,4 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
+
+  spec.add_runtime_dependency "clockwork"
 end
