@@ -9,7 +9,9 @@ TODO: Write a gem description
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'clockwork-test'
+group :test do
+  gem 'clockwork-test'
+end
 ```
 
 And then execute:
