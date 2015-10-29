@@ -1,5 +1,7 @@
 # Clockwork::Test
 
+[![Build Status](https://travis-ci.org/kevin-j-m/clockwork-test.svg?branch=master)](https://travis-ci.org/kevin-j-m/clockwork-test)
+
 TODO: Write a gem description
 
 ## Installation
