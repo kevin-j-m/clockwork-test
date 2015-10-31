@@ -63,6 +63,50 @@ describe Clockwork::Test::Manager do
           expect(manager.total_ticks).to be > 0
         end
       end
+
+      context "recording job history" do
+        let(:opts) { { max_ticks: max_ticks } }
+        let(:max_ticks) { 1 }
+        let(:job_name) { "Test job" }
+
+        before do
+          manager.handler { }
+          manager.every(1.minute, job_name)
+          manager.run
+        end
+
+        it "knows the job has run" do
+          expect(manager.ran_job?(job_name)).to be_truthy
+        end
+
+        it "finds a single run of the job" do
+          expect(manager.times_run(job_name)).to eq 1
+        end
+      end
+    end
+  end
+
+  describe "#ran_job?" do
+    let(:history) { double("history") }
+    let(:job) { double("job") }
+
+    it "determines if the job has run from the job history" do
+      allow(manager).to receive(:history).and_return(history)
+
+      expect(history).to receive(:ran_job?).with(job)
+      manager.ran_job?(job)
+    end
+  end
+
+  describe "#times_run" do
+    let(:history) { double("history") }
+    let(:job) { double("job") }
+
+    it "determines the number of times the job has run from the history" do
+      allow(manager).to receive(:history).and_return(history)
+
+      expect(history).to receive(:times_run).with(job)
+      manager.times_run(job)
     end
   end
 end
