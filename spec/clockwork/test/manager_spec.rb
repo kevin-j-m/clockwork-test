@@ -24,7 +24,7 @@ describe Clockwork::Test::Manager do
     end
   end
 
-  describe "run" do
+  describe "#run" do
     context "limiting the number of ticks" do
       let(:opts) { { max_ticks: max_ticks } }
       let(:max_ticks) { 1 }
@@ -32,6 +32,15 @@ describe Clockwork::Test::Manager do
       it "only runs the number of times specified" do
         manager.run
         expect(manager.total_ticks).to eq 1
+      end
+
+      context "specifying number of ticks in the method invocation" do
+        let(:method_max_ticks) { 3 }
+
+        it "runs the number of times specified in the run call" do
+          manager.run(max_ticks: method_max_ticks)
+          expect(manager.total_ticks).to eq method_max_ticks
+        end
       end
     end
 
@@ -43,6 +52,16 @@ describe Clockwork::Test::Manager do
         manager.run
         expect(Time.current).to be_within(1.second).of(end_time)
         expect(manager.total_ticks).to be > 0
+      end
+
+      context "specifying the end time in the method invocation" do
+        let(:method_end_time) { Time.current + 4.seconds }
+
+        it "stops running after reaching the end time specified in the call" do
+          manager.run(end_time: method_end_time)
+          expect(Time.current).to be_within(1.second).of(method_end_time)
+          expect(manager.total_ticks).to be > 0
+        end
       end
     end
   end

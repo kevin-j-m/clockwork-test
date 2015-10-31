@@ -13,6 +13,12 @@ module Clockwork
         config[:logger].level = Logger::ERROR
       end
 
+      def run(opts = {})
+        @max_ticks = opts[:max_ticks] if opts[:max_ticks]
+        @end_time = opts[:end_time] if opts[:end_time]
+        super()
+      end
+
       private
 
       def loop(&block)
