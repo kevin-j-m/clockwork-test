@@ -7,6 +7,7 @@ module Clockwork
 
       def initialize(opts = {})
         super()
+        @history = JobHistory.new
         @total_ticks = 0
         @max_ticks = opts[:max_ticks]
         @end_time = opts[:end_time]
@@ -19,15 +20,35 @@ module Clockwork
         super()
       end
 
+      def ran_job?(job)
+        history.ran_job?(job)
+      end
+
+      def times_run(job)
+        history.times_run(job)
+      end
+
       private
+
+      attr_reader :history
 
       def loop(&block)
         while 1 == 1 do
+          update_job_history
+
           block.call
 
           @total_ticks += 1
           break if ticks_exceeded? || time_exceeded?
         end
+      end
+
+      def update_job_history
+        history.record(jobs_run_now)
+      end
+
+      def jobs_run_now
+        events_to_run(Time.now).map(&:job)
       end
 
       def ticks_exceeded?
