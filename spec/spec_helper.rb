@@ -4,3 +4,4 @@ require 'pry'
 
 require 'clockwork/test'
 require 'clockwork/test/manager'
+require 'clockwork/test/job_history'
