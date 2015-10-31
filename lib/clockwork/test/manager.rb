@@ -10,6 +10,7 @@ module Clockwork
         @total_ticks = 0
         @max_ticks = opts[:max_ticks]
         @end_time = opts[:end_time]
+        config[:logger].level = Logger::ERROR
       end
 
       private
