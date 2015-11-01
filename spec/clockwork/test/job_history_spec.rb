@@ -1,4 +1,5 @@
 require "spec_helper"
+require "clockwork/test/job_history"
 
 describe Clockwork::Test::JobHistory do
   subject(:history) { Clockwork::Test::JobHistory.new(prior_history) }

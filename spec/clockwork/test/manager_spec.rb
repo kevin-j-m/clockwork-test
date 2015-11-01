@@ -1,4 +1,5 @@
 require "spec_helper"
+require "clockwork/test/manager"
 
 describe Clockwork::Test::Manager do
   subject(:manager) { Clockwork::Test::Manager.new(opts) }
