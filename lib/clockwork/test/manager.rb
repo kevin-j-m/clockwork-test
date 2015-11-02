@@ -10,7 +10,6 @@ module Clockwork
       def initialize(opts = {})
         super()
         @history = JobHistory.new
-        @work_done = {}
 
         @total_ticks = 0
         @max_ticks = opts[:max_ticks]
@@ -33,12 +32,12 @@ module Clockwork
       end
 
       def block_for(job)
-        work_done[job] || Proc.new {}
+        history.block_for(job)
       end
 
       private
 
-      attr_reader :history, :work_done
+      attr_reader :history
 
       def loop(&block)
         while 1 == 1 do
@@ -58,19 +57,11 @@ module Clockwork
       end
 
       def update_job_history
-        update_work_done
-        history.record(jobs_run_now)
+        history.record(events_run_now)
       end
 
-      # TODO: integrate into job history
-      def update_work_done
-        events_to_run(Time.now).each do |event|
-          work_done[event.job] = event.block
-        end
-      end
-
-      def jobs_run_now
-        events_to_run(Time.now).map(&:job)
+      def events_run_now
+        events_to_run(Time.now)
       end
 
       def ticks_exceeded?
