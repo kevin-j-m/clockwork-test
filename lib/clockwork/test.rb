@@ -1,4 +1,5 @@
 require "clockwork"
+require "timecop"
 
 require "clockwork/test/event"
 require "clockwork/test/job_history"
@@ -35,7 +36,11 @@ module Clockwork
     module Methods
       def run(opts = {})
         file = opts[:file] || "./config/clock.rb"
-        run_opts = { max_ticks: opts[:max_ticks], end_time: opts[:end_time] }
+        run_opts = {
+          max_ticks: opts[:max_ticks],
+          start_time: opts[:start_time],
+          end_time: opts[:end_time]
+        }
 
         # TODO parse file rather than loading it
         # and overloading Clockwork::Methods::every

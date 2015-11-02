@@ -16,7 +16,15 @@ module Clockwork
       def run(opts = {})
         @max_ticks = opts[:max_ticks] if opts[:max_ticks]
         @end_time = opts[:end_time] if opts[:end_time]
+
+        if opts[:start_time]
+          @time_altered = true
+          Timecop.travel(opts[:start_time])
+        end
+
         super()
+
+        Timecop.return if @time_altered
       end
 
       def ran_job?(job)
