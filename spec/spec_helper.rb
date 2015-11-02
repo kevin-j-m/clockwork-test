@@ -1,3 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'rspec/its'
+require 'clockwork/test'
+
 require 'pry'
+require 'rspec/its'

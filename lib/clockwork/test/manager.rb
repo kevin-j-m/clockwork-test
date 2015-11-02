@@ -1,9 +1,5 @@
 module Clockwork
   module Test
-    require "clockwork"
-    require "clockwork/test/job_history"
-    require "clockwork/test/event"
-
     class Manager < Clockwork::Manager
       attr_reader :total_ticks, :max_ticks, :end_time
 
