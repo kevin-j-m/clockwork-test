@@ -2,6 +2,7 @@ module Clockwork
   module Test
     require "clockwork"
     require "clockwork/test/job_history"
+    require "clockwork/test/event"
 
     class Manager < Clockwork::Manager
       attr_reader :total_ticks, :max_ticks, :end_time
@@ -9,6 +10,7 @@ module Clockwork
       def initialize(opts = {})
         super()
         @history = JobHistory.new
+
         @total_ticks = 0
         @max_ticks = opts[:max_ticks]
         @end_time = opts[:end_time]
@@ -29,6 +31,10 @@ module Clockwork
         history.times_run(job)
       end
 
+      def block_for(job)
+        history.block_for(job)
+      end
+
       private
 
       attr_reader :history
@@ -44,12 +50,18 @@ module Clockwork
         end
       end
 
-      def update_job_history
-        history.record(jobs_run_now)
+      def register(period, job, block, options)
+        event = ::Clockwork::Test::Event.new(self, period, job, block || handler, options)
+        @events << event
+        event
       end
 
-      def jobs_run_now
-        events_to_run(Time.now).map(&:job)
+      def update_job_history
+        history.record(events_run_now)
+      end
+
+      def events_run_now
+        events_to_run(Time.now)
       end
 
       def ticks_exceeded?

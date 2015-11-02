@@ -110,4 +110,22 @@ describe Clockwork::Test::Manager do
       manager.times_run(job)
     end
   end
+
+  describe "#block_for" do
+    let(:opts) { { max_ticks: max_ticks } }
+    let(:max_ticks) { 1 }
+    let(:job_name) { "Test job" }
+    before do
+      manager.every(1.minute, job_name) { "Running #{job_name}" }
+      manager.run
+    end
+
+    it "recalls the block that was run for a previously run job" do
+      expect(manager.block_for(job_name).call).to eq "Running #{job_name}"
+    end
+
+    it "does nothing for a job that was not run" do
+      expect(manager.block_for("not_run").call).to be_nil
+    end
+  end
 end
