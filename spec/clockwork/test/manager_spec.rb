@@ -64,24 +64,69 @@ describe Clockwork::Test::Manager do
           expect(manager.total_ticks).to be > 0
         end
       end
+    end
 
-      context "recording job history" do
-        let(:opts) { { max_ticks: max_ticks } }
-        let(:max_ticks) { 1 }
-        let(:job_name) { "Test job" }
+    context "recording job history" do
+      let(:opts) { { max_ticks: max_ticks } }
+      let(:max_ticks) { 1 }
+      let(:job_name) { "Test job" }
 
-        before do
-          manager.handler { }
-          manager.every(1.minute, job_name)
-          manager.run
-        end
+      before do
+        manager.handler { }
+        manager.every(1.minute, job_name)
+        manager.run
+      end
 
-        it "knows the job has run" do
-          expect(manager.ran_job?(job_name)).to be_truthy
-        end
+      it "knows the job has run" do
+        expect(manager.ran_job?(job_name)).to be_truthy
+      end
 
-        it "finds a single run of the job" do
-          expect(manager.times_run(job_name)).to eq 1
+      it "finds a single run of the job" do
+        expect(manager.times_run(job_name)).to eq 1
+      end
+    end
+
+    context "modifying when the test is run" do
+      let(:opts) { { max_ticks: max_ticks } }
+      let(:max_ticks) { 1 }
+      let(:job_name) { "Test job" }
+      let(:start_time) { Time.new(2000) }
+
+      before do
+        manager.handler { }
+        manager.every(1.minute, job_name, if: lambda { |t| t.year == 2000 })
+        manager.run(start_time: start_time)
+      end
+
+      it "runs the jobs at the time specified" do
+        expect(manager.ran_job?(job_name)).to be_truthy
+      end
+
+      it "resets time at the conclusion of the run" do
+        expect(Time.now.year).to be > 2000
+      end
+    end
+
+    context "speeding up the test run" do
+      let(:start_time) { Time.new(2015, 11, 2, 2, 0, 0) }
+      let(:end_time) { Time.new(2015, 11, 2, 3, 0, 0) }
+      let(:tick_speed) { 1.minute }
+      let(:job_name) { "Test job" }
+
+      before do
+        manager.handler { }
+        manager.every(1.minute, job_name)
+        manager.run(start_time: start_time, end_time: end_time, tick_speed: tick_speed)
+      end
+
+      it "runs the job as often as expected" do
+        expect(manager.times_run(job_name)).to eq 60
+      end
+
+      context "speeding up time" do
+        let(:tick_speed) { 30.minutes }
+        it "runs the job fewer times than it otherwise would" do
+          expect(manager.times_run(job_name)).to be < 60
         end
       end
     end

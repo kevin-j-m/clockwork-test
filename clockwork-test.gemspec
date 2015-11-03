@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-its"
 
   spec.add_runtime_dependency "clockwork"
+  spec.add_runtime_dependency "timecop"
 end
