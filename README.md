@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/kevin-j-m/clockwork-test.svg?branch=master)](https://travis-ci.org/kevin-j-m/clockwork-test)
 
-[Clockwork](https://rubygems.org/gems/clockwork) is a scheduler process for running scheduled jobs. These scheduled jobs are likely of critical importance to your application. You need to ensure that the jobs run when they should, as often as they should, and with the proper behavior when run. Clockwork::Test allows you to test your `clock.rb` file. This gem can help make sure that you have scheduled your events appropriately, including testing `if:` or `at:` conditions, as well as allowing you to run assertions against the code that is executed when a job is run.
+[Clockwork](https://rubygems.org/gems/clockwork) is a scheduler process for running scheduled jobs. These scheduled jobs are likely of critical importance to your application. You need to ensure that the jobs run when they should, as often as they should, and with the proper behavior when run.
+
+Clockwork::Test allows you to test your `clock.rb` file. This gem can help make sure that you have scheduled your events appropriately, including testing `if:` or `at:` conditions, as well as allowing you to run assertions against the code that is executed when a job is run.
 
 Clockwork::Test has been verified against the latest release of clockwork at the time of its development, which is version 1.2.0. It does not require any specific test framework to be used with it, though all examples will use `rspec`.
 
@@ -72,7 +74,7 @@ end
 
 ## Usage
 
-Replacing any calls to `Clockwork` with `Clockwork::Test` in your tests should perform as expected, with the one caveat that a job running in `Clockwork::Test` will not actually execute its event's handler code. That is suppressed, but made available via the `block_for` method. `Clockwork::Test` provides additional functionality that provides for ease of testing.
+Replacing any calls to `Clockwork` with `Clockwork::Test` in your tests should perform as expected, with the one caveat that a job running in `Clockwork::Test` will not actually execute its event's handler code. That is suppressed, but made available via the `block_for` method. `Clockwork::Test` includes additional functionality that makes testing easy.
 
 ### Running Clockwork in Tests
 
@@ -87,21 +89,31 @@ Either of these methods can be used by passing the proper configuration option i
 
 #### max_ticks
 
-Setting the `max_ticks` will determine the number of times that clockwork will run any events that should be scheduled at the given time. This is commonly used to let clockwork execute once at a single time, to then see if particular jobs are triggered right when clockwork starts up.
+Setting the `max_ticks` will determine the number of times that clockwork will run any events scheduled at that time. This is commonly used to let clockwork execute once, to then see if particular jobs are triggered right when clockwork starts up.
 
 #### start_time
 
-This is the time that you would like the clock file to start processing it. This may be used with either the `max_ticks` or `end_time` option to halt execution of the run loop. If the `start_time` option is used, `Time.now` will be modified to the `start_time` at the beginning of execution of `Clockwork::Test.run`, and will be returned to the proper time at the conclusion of the run.
+This is the time that you would like the clock file to start processing it. This may be used with either the `max_ticks` or `end_time` option to halt execution of the run loop.
+
+If the `start_time` option is used, `Time.now` will be modified to the `start_time` at the beginning of execution of `Clockwork::Test.run`, and will be returned to the proper time at the conclusion of the run.
 
 #### end_time
 
-This specifies the time at which execution of clockwork should terminate. The run loop will continue until the `end_time` is reached, provided the `max_ticks` has not been exceeded, if that is provided. This is commonly used along with `start_time` and `tick_speed` to quickly see if jobs run as often as expected over a certain period of time.
+This specifies the time at which execution of clockwork should terminate. The run loop will continue until the `end_time` is reached, provided the `max_ticks` has not been exceeded, if that is provided.
+
+This is commonly used along with `start_time` and `tick_speed` to quickly see if jobs run as often as expected over a certain period of time.
 
 #### tick_speed
 
-`tick_speed` should be provided as a unit of time, such as `1.minute` or `3.hours`. It is the amount of time that the test will progress time to on every subsequent clock tick. If `tick_speed` is set to `1.minute` and Time `t` is `13:00`, the first tick will occur at `13:00`, and the second will appear occur at `13:01`. This can be used in concert with `start_time` and `end_time` to quickly simulate moving across a large period of time, without having to wait for the full time period to occur in reality.
+`tick_speed` should be provided as a unit of time, such as `1.minute` or `3.hours`. It is the amount of time that the test will progress time to on every subsequent clock tick.
 
-Note that `tick_speed` should not be set any higher than the minimum amount of granularity used in the clock file under test. If the `tick_speed` is set to a higher amount, than the number of times a job is run, or if the job is run at all, is subject to inconsistent and inaccurate results. For example, with a `tick_speed` of `30.minutes` and a job that runs every `1.minute` over the course of an hour, the `times_ran` for that job will *not* be 60. It will be 2, assuming minimal passage of time in evaluating the actual clock tick.
+If `tick_speed` is set to `1.minute` and the current time is `13:00`, the first tick will occur at `13:00`, and the second will appear occur at `13:01`.
+
+This can be used in concert with `start_time` and `end_time` to quickly simulate moving across a large period of time, without having to wait for the full time period to occur in reality.
+
+Note that `tick_speed` should not be set any higher than the minimum amount of granularity used in the clock file under test. Should the `tick_speed` be set to a higher amount, the number of times a job is run, or if the job is run at all, is subject to inconsistent and inaccurate results.
+
+For example, with a `tick_speed` of `30.minutes` and a job that runs every `1.minute` over the course of an hour, the `times_ran` for that job will *not* be 60. It will be 2, assuming minimal passage of time in evaluating the actual clock tick.
 
 #### file
 
@@ -113,15 +125,25 @@ After running your clock file with `Clockwork::Test.run`, you can use the follow
 
 #### ran_job?
 
-`ran_job?` lets you know if a particular job ran during previous executions of `Clockwork::Test.run`. If the job "test_job" has run, `ran_job?("test_job")` will be true; otherwise, the method will return false.
+`ran_job?` lets you know if a particular job ran during previous executions of `Clockwork::Test.run`.
+
+If the job "test_job" has run, `ran_job?("test_job")` will be true; otherwise, the method will return false.
 
 #### times_run
 
-`times_run` provides the number of times a job has run during previous executions of `Clockwork::Test.run`. If the job "test_job" never ran, `times_run("test_job")` will be 0; otherwise, it will be the number of times that the event was executed.
+`times_run` provides the number of times a job has run during previous executions of `Clockwork::Test.run`.
+
+If the job "test_job" never ran, `times_run("test_job")` will be 0; otherwise, it will be the number of times that the event was executed.
 
 #### block_for
 
-`block_for` returns the block that would be handled an run on each execution of a job that has run. This can be useful for ensuring that the block you associated with an event does whatever it is that you expect it to do. If the job "test_job" never ran, `block_for("test_job")` will return an empty proc; otherwise, the block of code that the event would run is returned, which can then be `call`ed to test.
+`block_for` returns the block that would be handled and run on each execution of a job. This can be useful for ensuring that the block you associated with an event does whatever it is that you expect it to do.
+
+If the job "test_job" never ran, `block_for("test_job")` will return an empty proc; otherwise, the block of code that the event would run is returned, which can then be `call`ed to test.
+
+### Resetting the clock
+
+After each invocation of `Clockwork::Test.run` and assertions made against it, `Clockwork::Test.clear!` should be called. This will wipe all history away and load up the clock file fresh on the next `run`. Failure to do so across tests will carry over past history, which will cause the number of times a job has run to be incorrect and subject to a test ordering bug.
 
 ## Contributing
 
