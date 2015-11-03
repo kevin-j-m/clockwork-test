@@ -36,10 +36,12 @@ module Clockwork
     module Methods
       def run(opts = {})
         file = opts[:file] || "./config/clock.rb"
+
         run_opts = {
           max_ticks: opts[:max_ticks],
           start_time: opts[:start_time],
-          end_time: opts[:end_time]
+          end_time: opts[:end_time],
+          tick_speed: opts[:tick_speed]
         }
 
         # TODO parse file rather than loading it

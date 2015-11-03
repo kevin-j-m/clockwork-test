@@ -106,6 +106,30 @@ describe Clockwork::Test::Manager do
         expect(Time.now.year).to be > 2000
       end
     end
+
+    context "speeding up the test run" do
+      let(:start_time) { Time.new(2015, 11, 2, 2, 0, 0) }
+      let(:end_time) { Time.new(2015, 11, 2, 3, 0, 0) }
+      let(:tick_speed) { 1.minute }
+      let(:job_name) { "Test job" }
+
+      before do
+        manager.handler { }
+        manager.every(1.minute, job_name)
+        manager.run(start_time: start_time, end_time: end_time, tick_speed: tick_speed)
+      end
+
+      it "runs the job as often as expected" do
+        expect(manager.times_run(job_name)).to eq 60
+      end
+
+      context "speeding up time" do
+        let(:tick_speed) { 30.minutes }
+        it "runs the job fewer times than it otherwise would" do
+          expect(manager.times_run(job_name)).to be < 60
+        end
+      end
+    end
   end
 
   describe "#ran_job?" do
