@@ -4,7 +4,7 @@
 
 [Clockwork](https://rubygems.org/gems/clockwork) is a scheduler process for running scheduled jobs. These scheduled jobs are likely of critical importance to your application. You need to ensure that the jobs run when they should, as often as they should, and with the proper behavior when run.
 
-Clockwork::Test allows you to test your `clock.rb` file. This gem can help make sure that you have scheduled your events appropriately, including testing `if:` or `at:` conditions, as well as allowing you to run assertions against the code that is executed when a job is run.
+`Clockwork::Test` includes additional functionality that makes testing of your `clock.rb` file easy. This gem can help make sure that you have scheduled your events appropriately, including testing `if:` or `at:` conditions, as well as allowing you to run assertions against the code that is executed when a job is run.
 
 Clockwork::Test has been verified against the latest release of clockwork at the time of its development, which is version 1.2.0. It does not require any specific test framework to be used with it, though all examples will use `rspec`.
 
@@ -74,11 +74,11 @@ end
 
 ## Usage
 
-Replacing any calls to `Clockwork` with `Clockwork::Test` in your tests should perform as expected, with the one caveat that a job running in `Clockwork::Test` will not actually execute its event's handler code. That is suppressed, but made available via the `block_for` method. `Clockwork::Test` includes additional functionality that makes testing easy.
+Replacing any calls to `Clockwork` with `Clockwork::Test` in your tests should perform as expected, with the one caveat that a job running in `Clockwork::Test` will not actually execute its event's handler code. That is suppressed, but made available via the `block_for` method.
 
 ### Running Clockwork in Tests
 
-A call to `Clockwork.run` will run the clockwork process until it is signaled to stop. This is, obviously, less than ideal for running in a test suite. `Clockwork::Test.run` provides two ways to stop the current execution:
+A call to `Clockwork.run` will run the clockwork process until it is signaled to stop, such as by receiving the `SIGINT` signal. `Clockwork::Test.run` provides two ways to easily stop the current execution:
 
 1. After a particular number of clock ticks (See the `max_ticks` configuration setting).
 3. After a moment in time has been reached (See the `end_time` configuration setting).
