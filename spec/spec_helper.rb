@@ -3,3 +3,7 @@ require 'clockwork/test'
 
 require 'pry'
 require 'rspec/its'
+
+RSpec.configure do |config|
+  config.include(Clockwork::Test::RSpec::Matchers)
+end
