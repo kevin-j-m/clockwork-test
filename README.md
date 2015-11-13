@@ -6,11 +6,11 @@
 
 `Clockwork::Test` includes additional functionality that makes testing of your `clock.rb` file easy. This gem can help make sure that you have scheduled your events appropriately, including testing `if:` or `at:` conditions, as well as allowing you to run assertions against the code that is executed when a job is run.
 
-Clockwork::Test has been verified against the latest release of clockwork at the time of its development, which is version 1.2.0. It does not require any specific test framework to be used with it, though all examples will use `rspec`.
+`Clockwork::Test` has been verified against the latest release of clockwork at the time of its development, which is version 1.2.0. It does not require any specific test framework to be used with it, though all examples will use `rspec`.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this to your application's Gemfile:
 
 ```ruby
 group :test do
@@ -172,9 +172,9 @@ You can alternatively pass the number of times in as an optional argument in the
 
 `expect(Clockwork::Test).to have_run("Job Name", times: 42)`
 
-If you do not pass the number of times, either with a chained method call or as an optional argument to `have_run`, the matcher will just check if the job was run at all. It provides no assertion as to how often it was run, just that it's at least once.
-
 Chaining `once` to `have_run` will check that the job was run one time only.
+
+If you do not pass the number of times, either with a chained method call or as an optional argument to `have_run`, the matcher will just check if the job was run at all. It provides no assertion as to how often it was run, just that it's at least once.
 
 ### Resetting the clock
 
