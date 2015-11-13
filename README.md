@@ -69,6 +69,17 @@ describe Clockwork do
 
     expect(Clockwork::Test.times_run("Run a job").to eq 60
   end
+
+  describe "RSpec Custom Matcher" do
+    subject(:clockwork) { Clockwork::Test }
+
+    before { Clockwork::Test.run(max_ticks: 1) }
+
+    it { should have_run("Run a job") }
+    it { should have_run("Run a job").once }
+
+    it { should_not have_run("Run a job").exactly(2).times }
+  end
 end
 ```
 
@@ -140,6 +151,30 @@ If the job "test_job" never ran, `times_run("test_job")` will be 0; otherwise, i
 `block_for` returns the block that would be handled and run on each execution of a job. This can be useful for ensuring that the block you associated with an event does whatever it is that you expect it to do.
 
 If the job "test_job" never ran, `block_for("test_job")` will return an empty proc; otherwise, the block of code that the event would run is returned, which can then be `call`ed to test.
+
+### RSpec Matchers
+
+`Clockwork::Test` includes a rspec test matcher to check if a job has been run.
+
+To use, add the following to your `spec_helper.rb`:
+
+```ruby
+RSpec.configure do |config|
+  config.include(Clockwork::Test::RSpec::Matchers)
+end
+```
+
+The `have_run` matcher checks if a job by the name provided has been run, and allows for a specific number of times to be checked against.
+
+`expect(Clockwork::Test).to have_run("Job Name").exactly(42).times`
+
+You can alternatively pass the number of times in as an optional argument in the `have_run` method, as such:
+
+`expect(Clockwork::Test).to have_run("Job Name", times: 42)`
+
+If you do not pass the number of times, either with a chained method call or as an optional argument to `have_run`, the matcher will just check if the job was run at all. It provides no assertion as to how often it was run, just that it's at least once.
+
+Chaining `once` to `have_run` will check that the job was run one time only.
 
 ### Resetting the clock
 

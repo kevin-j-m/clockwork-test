@@ -5,6 +5,7 @@ require "clockwork/test/event"
 require "clockwork/test/job_history"
 require "clockwork/test/manager"
 require "clockwork/test/version"
+require "clockwork/test/rspec/matchers"
 
 module Clockwork
   module Methods
