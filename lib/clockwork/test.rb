@@ -13,6 +13,11 @@ module Clockwork
       ::Clockwork.manager.every(period, job, options, &block)
       ::Clockwork::Test.manager.every(period, job, options, &block)
     end
+
+    def configure(&block)
+      ::Clockwork.manager.configure(&block)
+      ::Clockwork::Test.manager.configure(&block)
+    end
   end
 
   module Test
@@ -46,7 +51,8 @@ module Clockwork
         }
 
         # TODO parse file rather than loading it
-        # and overloading Clockwork::Methods::every
+        # and overloading Clockwork::Methods::every 
+        # and Clockwork::Methods::configure
         load file
 
         manager.run(run_opts)
