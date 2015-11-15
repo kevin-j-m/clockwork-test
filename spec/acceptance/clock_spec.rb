@@ -47,4 +47,35 @@ describe "Clockwork" do
       it { should have_run(test_job_name, times: 2) }
     end
   end
+
+  describe "Run at certain time" do
+    subject(:clockwork) { Clockwork::Test }
+
+    before(:each) do
+      Time.zone = time_zone
+
+      Clockwork::Test.run(clock_opts)
+    end
+
+    after(:each) { Clockwork::Test.clear! }
+
+    let(:clock_opts) { { file: clock_file, start_time: start_time, max_ticks: 1 } }
+
+    let(:time_zone) { "US/Eastern" }
+    let(:start_time) { Time.zone.local(2008, 9, 1, 17, 30, 0) }
+
+    it { should have_run("Run at certain time").once }
+
+    context "before the job should be run" do
+      let(:start_time) { Time.zone.local(2015, 9, 13, 17, 29, 59) }
+
+      it { should_not have_run("Run at certain time") }
+    end
+
+    context "after the job should be run" do
+      let(:start_time) { Time.zone.local(2015, 9, 13, 17, 31, 0) }
+
+      it { should_not have_run("Run at certain time") }
+    end
+  end
 end
