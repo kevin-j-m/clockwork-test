@@ -188,3 +188,4 @@ After each invocation of `Clockwork::Test.run` and assertions made against it, `
 4. Commit your changes (`git commit -am 'Add some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create a new Pull Request
+7. Add a new entry to the CHANGELOG.md in the Current Release section. Include a description of the change, the PR, and your name.
