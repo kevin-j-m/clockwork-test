@@ -18,26 +18,15 @@ module Clockwork
           end
 
           def once
-            @times_run = 1
-            @exactly = true
-
-            self
+            time(1)
           end
 
           def exactly(times)
-            @times_run = times
-            @exactly = true
-
-            self
+            time(times)
           end
 
           def times(times = nil)
-            if times
-              @times_run = times
-              @exactly = true
-            end
-
-            self
+            time(times)
           end
 
           def time(times = nil)
