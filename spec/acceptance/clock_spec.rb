@@ -52,9 +52,7 @@ describe "Clockwork" do
     subject(:clockwork) { Clockwork::Test }
 
     before(:each) do
-      Time.zone = time_zone
-
-      Clockwork::Test.run(clock_opts)
+      Time.use_zone(time_zone) { Clockwork::Test.run(clock_opts) }
     end
 
     after(:each) { Clockwork::Test.clear! }
