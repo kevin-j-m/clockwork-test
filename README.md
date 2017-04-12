@@ -6,7 +6,9 @@
 
 `Clockwork::Test` includes additional functionality that makes testing of your `clock.rb` file easy. This gem can help make sure that you have scheduled your events appropriately, including testing `if:` or `at:` conditions, as well as allowing you to run assertions against the code that is executed when a job is run.
 
-`Clockwork::Test` has been verified against the latest release of clockwork at the time of its development, which is version 1.2.0. It does not require any specific test framework to be used with it, though all examples will use `rspec`.
+`Clockwork::Test` runs its test suite against various versions of clockwork, which are documented in the [Appraisals](Appraisals) file. The ruby versions its tested against are documented in the [Travis configuration](.travis.yml).
+
+`Clockwork::Test` does not require any specific test framework to be used with it, though all examples will use `rspec`.
 
 ## Installation
 

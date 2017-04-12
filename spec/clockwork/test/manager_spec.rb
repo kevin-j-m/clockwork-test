@@ -51,7 +51,7 @@ describe Clockwork::Test::Manager do
 
       it "stops running after reaching the end time" do
         manager.run
-        expect(Time.current).to be_within(1.second).of(end_time)
+        expect(Time.current).to be_within(2.seconds).of(end_time)
         expect(manager.total_ticks).to be > 0
       end
 
@@ -60,7 +60,7 @@ describe Clockwork::Test::Manager do
 
         it "stops running after reaching the end time specified in the call" do
           manager.run(end_time: method_end_time)
-          expect(Time.current).to be_within(1.second).of(method_end_time)
+          expect(Time.current).to be_within(2.seconds).of(method_end_time)
           expect(manager.total_ticks).to be > 0
         end
       end
