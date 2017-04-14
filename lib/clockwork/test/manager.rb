@@ -25,7 +25,7 @@ module Clockwork
           Timecop.travel(@start_time)
         end
 
-        super()
+        tick_loop
 
         Timecop.return if @time_altered
       end
@@ -46,23 +46,20 @@ module Clockwork
 
       attr_reader :history
 
-      def loop(&block)
-        while 1 == 1 do
+      def tick_loop
+        while true do
           update_job_history
 
-          block.call
+          tick
+          increase_time
 
           @total_ticks += 1
           break if ticks_exceeded? || time_exceeded?
         end
       end
 
-      def sleep(interval)
-        if @tick_speed
-          Timecop.travel(Time.now + @tick_speed)
-        else
-          super
-        end
+      def increase_time
+        Timecop.travel(Time.now + @tick_speed) if @tick_speed
       end
 
       def register(period, job, block, options)
