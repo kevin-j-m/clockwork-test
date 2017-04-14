@@ -1,5 +1,7 @@
 ## Current release (in development)
 
+## 0.2.0
+
 * Refactor custom matcher to remove repeated code [#8](https://github.com/kevin-j-m/clockwork-test/pull/8)
 
   *Kevin Murphy*
