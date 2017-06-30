@@ -67,9 +67,9 @@ describe Clockwork do
     end_time = Time.new(2015, 11, 2, 3, 0, 0)
 
     Clockwork::Test.run(start_time: start_time, end_time: end_time, tick_speed:
-1.minute)
+      1.minute)
 
-    expect(Clockwork::Test.times_run("Run a job").to eq 60
+    expect(Clockwork::Test.times_run("Run a job")).to eq 60
   end
 
   describe "RSpec Custom Matcher" do
