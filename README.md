@@ -51,6 +51,8 @@ end
 The following tests may be run against it:
 
 ```ruby
+require "clockwork/test"
+
 describe Clockwork do
   after(:each) { Clockwork::Test.clear! }
 
