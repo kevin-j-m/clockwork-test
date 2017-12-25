@@ -12,6 +12,10 @@
 
   *Kevin Murphy*
 
+* Update ruby point versions in testing matrix [#22](https://github.com/kevin-j-m/clockwork-test/pull/22)
+
+  *Kevin Murphy*
+
 ## 0.2.0
 
 * Refactor custom matcher to remove repeated code [#8](https://github.com/kevin-j-m/clockwork-test/pull/8)
