@@ -1,3 +1,7 @@
+appraise "clockwork-master" do
+  gem "clockwork", git: "https://github.com/Rykian/clockwork"
+end
+
 appraise "clockwork-1-3-1" do
   gem "clockwork", "1.3.1"
 end
