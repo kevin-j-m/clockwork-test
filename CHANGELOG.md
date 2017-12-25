@@ -4,6 +4,10 @@
 
   *Kevin Murphy*
 
+* Test against master branch of clockwork [#18](https://github.com/kevin-j-m/clockwork-test/pull/18)
+
+  *Kevin Murphy*
+
 ## 0.2.0
 
 * Refactor custom matcher to remove repeated code [#8](https://github.com/kevin-j-m/clockwork-test/pull/8)

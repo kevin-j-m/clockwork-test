@@ -12,6 +12,7 @@ matrix:
   allow_failures:
     - rvm: ruby-head
 gemfile:
+  - gemfiles/clockwork_master.gemfile
   - gemfiles/clockwork_1_3_1.gemfile
   - gemfiles/clockwork_2_0_0.gemfile
   - gemfiles/clockwork_2_0_1.gemfile
