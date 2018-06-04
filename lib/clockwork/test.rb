@@ -50,12 +50,12 @@ module Clockwork
           tick_speed: opts[:tick_speed]
         }
 
-        # TODO parse file rather than loading it
-        # and overloading Clockwork::Methods::every 
-        # and Clockwork::Methods::configure
-        load file
-
-        manager.run(run_opts)
+        manager.run(run_opts) do
+          # TODO parse file rather than loading it
+          # and overloading Clockwork::Methods::every
+          # and Clockwork::Methods::configure
+          load file
+        end
       end
 
       def clear!

@@ -25,6 +25,8 @@ module Clockwork
           Timecop.travel(@start_time)
         end
 
+        yield if block_given?
+
         tick_loop
 
         Timecop.return if @time_altered
