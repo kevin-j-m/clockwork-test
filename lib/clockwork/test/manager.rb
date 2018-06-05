@@ -50,6 +50,8 @@ module Clockwork
           @end_time = Time.current
         end
         @tick_speed = opts[:tick_speed]
+
+        raise "End time can't precede start time." if @start_time && (@start_time > @end_time)
       end
 
       attr_reader :history

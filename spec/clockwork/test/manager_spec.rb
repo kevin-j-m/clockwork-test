@@ -34,6 +34,14 @@ describe Clockwork::Test::Manager do
       its(:start_time) { should eq opts[:start_time] }
       its(:end_time) { should eq Time.current }
     end
+
+    context "start_time happens after the end_time" do
+      let(:opts) { { start_time: 5.minutes.ago, end_time: 10.minutes.ago } }
+
+      it "raises with useful message" do
+        expect { manager }.to raise_error("End time can't precede start time.")
+      end
+    end
   end
 
   describe "#run" do
