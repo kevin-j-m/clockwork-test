@@ -76,4 +76,20 @@ describe "Clockwork" do
       it { should_not have_run("Run at certain time") }
     end
   end
+
+  if Gem::Version.new("2.0.2") < Gem::Version.new(Gem.loaded_specs["clockwork"].version)
+    describe "Runs when skip_first_run is specified" do
+      subject(:clockwork) { Clockwork::Test }
+
+      before(:each) { Clockwork::Test.run(clock_opts) }
+      after(:each) { Clockwork::Test.clear! }
+
+      let(:start_time) { Time.new(2012, 9, 1, 17, 30, 0) }
+      let(:end_time) { start_time + 25.hours }
+
+      let(:clock_opts) { { file: clock_file, start_time: start_time, end_time: end_time, tick_speed: 12.hours } }
+
+      it { should have_run("Run but not at start").once }
+    end
+  end
 end
