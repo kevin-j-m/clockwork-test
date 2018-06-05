@@ -118,6 +118,8 @@ This specifies the time at which execution of clockwork should terminate. The ru
 
 This is commonly used along with `start_time` and `tick_speed` to quickly see if jobs run as often as expected over a certain period of time.
 
+When `start_time` is set, this setting defaults to `Time.current`.
+
 #### tick_speed
 
 `tick_speed` should be provided as a unit of time, such as `1.minute` or `3.hours`. It is the amount of time that the test will progress time to on every subsequent clock tick.

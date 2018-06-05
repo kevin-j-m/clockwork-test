@@ -1,7 +1,7 @@
 module Clockwork
   module Test
     class Manager < Clockwork::Manager
-      attr_reader :total_ticks, :max_ticks, :end_time
+      attr_reader :total_ticks, :max_ticks, :end_time, :start_time
 
       def initialize(opts = {})
         super()
@@ -10,19 +10,27 @@ module Clockwork
         @total_ticks = 0
         @max_ticks = opts[:max_ticks]
         @start_time = opts[:start_time]
-        @end_time = opts[:end_time]
+        if opts[:end_time]
+          @end_time = opts[:end_time]
+        elsif @start_time
+          @end_time = Time.current
+        end
         config[:logger].level = Logger::ERROR
       end
 
       def run(opts = {})
         @max_ticks = opts[:max_ticks] if opts[:max_ticks]
         @start_time = opts[:start_time] if opts[:start_time]
-        @end_time = opts[:end_time] if opts[:end_time]
+        if opts[:end_time]
+          @end_time = opts[:end_time]
+        elsif @start_time
+          @end_time = Time.current
+        end
         @tick_speed = opts[:tick_speed]
 
-        if @start_time
+        if start_time
           @time_altered = true
-          Timecop.travel(@start_time)
+          Timecop.travel(start_time)
         end
 
         yield if block_given?
