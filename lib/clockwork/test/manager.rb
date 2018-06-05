@@ -6,27 +6,14 @@ module Clockwork
       def initialize(opts = {})
         super()
         @history = JobHistory.new
-
         @total_ticks = 0
-        @max_ticks = opts[:max_ticks]
-        @start_time = opts[:start_time]
-        if opts[:end_time]
-          @end_time = opts[:end_time]
-        elsif @start_time
-          @end_time = Time.current
-        end
+        set_opts(opts)
+
         config[:logger].level = Logger::ERROR
       end
 
       def run(opts = {})
-        @max_ticks = opts[:max_ticks] if opts[:max_ticks]
-        @start_time = opts[:start_time] if opts[:start_time]
-        if opts[:end_time]
-          @end_time = opts[:end_time]
-        elsif @start_time
-          @end_time = Time.current
-        end
-        @tick_speed = opts[:tick_speed]
+        set_opts(opts)
 
         if start_time
           @time_altered = true
@@ -53,6 +40,17 @@ module Clockwork
       end
 
       private
+
+      def set_opts(opts)
+        @max_ticks = opts[:max_ticks] if opts[:max_ticks]
+        @start_time = opts[:start_time] if opts[:start_time]
+        if opts[:end_time]
+          @end_time = opts[:end_time]
+        elsif @start_time
+          @end_time = Time.current
+        end
+        @tick_speed = opts[:tick_speed]
+      end
 
       attr_reader :history
 
