@@ -16,6 +16,10 @@
 
   *Kevin Murphy*
 
+* Add clockwork 2.0.3, support `skip_first_run` option [#25](https://github.com/kevin-j-m/clockwork-test/pull/25)
+
+  *[Oleksandr Rozumii](https://github.com/brain-geek)*
+
 ## 0.2.0
 
 * Refactor custom matcher to remove repeated code [#8](https://github.com/kevin-j-m/clockwork-test/pull/8)
