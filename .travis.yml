@@ -17,3 +17,4 @@ gemfile:
   - gemfiles/clockwork_2_0_0.gemfile
   - gemfiles/clockwork_2_0_1.gemfile
   - gemfiles/clockwork_2_0_2.gemfile
+  - gemfiles/clockwork_2_0_3.gemfile
