@@ -20,6 +20,10 @@
 
   *[Oleksandr Rozumii](https://github.com/brain-geek)*
 
+* Default `end_time` to current time if `start_time` is provided with no end time [#26](https://github.com/kevin-j-m/clockwork-test/pull/26)
+
+  *[Oleksandr Rozumii](https://github.com/brain-geek)*
+
 ## 0.2.0
 
 * Refactor custom matcher to remove repeated code [#8](https://github.com/kevin-j-m/clockwork-test/pull/8)
