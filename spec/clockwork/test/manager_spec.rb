@@ -8,6 +8,7 @@ describe Clockwork::Test::Manager do
   context "initial state" do
     its(:total_ticks) { should eq 0 }
     its(:max_ticks) { should be_nil }
+    its(:start_time) { should be_nil }
     its(:end_time) { should be_nil }
 
     context "providing a maximum number of ticks" do
@@ -22,6 +23,24 @@ describe Clockwork::Test::Manager do
       let(:end_time) { Time.current }
 
       its(:end_time) { should eq end_time }
+    end
+
+    context "start_time provided, while end_time is not" do
+      let(:opts) { { start_time: 5.minutes.ago } }
+
+      before { Timecop.freeze }
+      after { Timecop.return }
+
+      its(:start_time) { should eq opts[:start_time] }
+      its(:end_time) { should eq Time.current }
+    end
+
+    context "start_time happens after the end_time" do
+      let(:opts) { { start_time: 5.minutes.ago, end_time: 10.minutes.ago } }
+
+      it "raises with useful message" do
+        expect { manager }.to raise_error("End time can't precede start time.")
+      end
     end
   end
 
