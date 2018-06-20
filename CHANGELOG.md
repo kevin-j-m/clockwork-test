@@ -1,5 +1,7 @@
 ## Current release (in development)
 
+## 0.3.0 [2018-06-19]
+
 * Introduce release process documentation [#14](https://github.com/kevin-j-m/clockwork-test/pull/14)
 
   *Kevin Murphy*
