@@ -17,3 +17,7 @@ end
 appraise "clockwork-2-0-2" do
   gem "clockwork", "2.0.2"
 end
+
+appraise "clockwork-2-0-3" do
+  gem "clockwork", "2.0.3"
+end

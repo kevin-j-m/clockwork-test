@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    clockwork-test (0.2.0)
+    clockwork-test (0.3.0)
       clockwork
       timecop
 
