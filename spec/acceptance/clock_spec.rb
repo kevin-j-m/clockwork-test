@@ -77,6 +77,24 @@ describe "Clockwork" do
     end
   end
 
+  describe "Run with wildcards" do
+    subject(:clockwork) { Clockwork::Test }
+
+    before(:each) { Clockwork::Test.run(clock_opts) }
+    after(:each) { Clockwork::Test.clear! }
+
+    let(:clock_opts) { { file: clock_file, start_time: start_time, end_time: end_time, tick_speed: 1.minute } }
+
+    let(:start_time) { Time.new(2008, 9, 1, 17, 0, 0) }
+    let(:end_time) { start_time + 1.hour }
+
+    it { should have_run("Run at 10 past the hour").once }
+
+    it "logs the job being run" do
+      expect(Clockwork::Test.times_run("Run at 10 past the hour")).to eq 1
+    end
+  end
+
   if Gem::Version.new("2.0.2") < Gem::Version.new(Gem.loaded_specs["clockwork"].version)
     describe "Runs when skip_first_run is specified" do
       subject(:clockwork) { Clockwork::Test }

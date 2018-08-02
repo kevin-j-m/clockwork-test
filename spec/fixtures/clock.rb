@@ -18,4 +18,8 @@ module Clockwork
   every(1.day, "Run but not at start", skip_first_run: true) do
     "Run at certain time"
   end
+
+  every(1.hour, "Run at 10 past the hour", at: "**:10") do
+    "Run at 10 past the hour"
+  end
 end
