@@ -1,6 +1,8 @@
 require "clockwork"
 
 module Clockwork
+  CONSTANT = "redefined on subsequent loads".freeze
+
   configure do |config|
     config[:tz] = "US/Eastern"
   end
