@@ -1,6 +1,15 @@
 require "clockwork"
 
 module Clockwork
+  EVERY_TEN_FULL_MINUTES = [
+    "**:00",
+    "**:10",
+    "**:20",
+    "**:30",
+    "**:40",
+    "**:50"
+  ].freeze
+
   configure do |config|
     config[:tz] = "US/Eastern"
   end
@@ -21,5 +30,9 @@ module Clockwork
 
   every(1.hour, "Run at 10 past the hour", at: "**:10") do
     "Run at 10 past the hour"
+  end
+
+  every(1.hour, "Run every 10 full minutes", at: EVERY_TEN_FULL_MINUTES) do
+    "Run every 10 full minutes"
   end
 end
