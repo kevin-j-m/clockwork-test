@@ -101,15 +101,15 @@ describe "Clockwork" do
     before(:each) { Clockwork::Test.run(clock_opts) }
     after(:each) { Clockwork::Test.clear! }
 
-    let(:clock_opts) { { file: clock_file, start_time: start_time, max_ticks: 3, tick_speed: 30.minutes } }
+    let(:clock_opts) { { file: clock_file, start_time: start_time, end_time: end_time, tick_speed: 1.minute } }
 
     let(:start_time) { Time.new(2008, 9, 1, 17, 0, 0) }
     let(:end_time) { start_time + 1.hour }
 
-    it { should have_run("Run every 10 full minutes").exactly(3).times }
+    it { should have_run("Run every 10 full minutes").exactly(6).times }
 
     it "logs the job being run" do
-      expect(Clockwork::Test.times_run("Run every 10 full minutes")).to eq 3
+      expect(Clockwork::Test.times_run("Run every 10 full minutes")).to eq 6
     end
 
   end
