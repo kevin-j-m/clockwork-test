@@ -18,6 +18,11 @@ module Clockwork
       ::Clockwork.manager.configure(&block)
       ::Clockwork::Test.manager.configure(&block)
     end
+
+    def on(event, options={}, &block)
+      ::Clockwork.manager.on(event, options, &block)
+      ::Clockwork::Test.manager.on(event, options, &block)
+    end
   end
 
   module Test
