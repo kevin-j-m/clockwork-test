@@ -6,6 +6,10 @@ module Clockwork
   end
 
   handler { |job| logger.info "Running #{job}" }
+  on(:before_tick) do
+    logger ||= manager.config[:logger]
+    logger.info "Running before tick"
+  end
 
   every(1.minute, "Run a job") do
     "Here's a running job"
