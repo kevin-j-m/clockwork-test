@@ -1,4 +1,7 @@
 ## Current release (in development)
+* Support clockwork callbacks [#33] (https://github.com/kevin-j-m/clockwork-test/pull/33)
+
+  *Rahul Agrawal*
 
 ## 0.3.0 [2018-06-19]
 

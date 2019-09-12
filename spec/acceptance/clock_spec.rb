@@ -22,6 +22,22 @@ describe "Clockwork" do
     end
   end
 
+  describe "Runs the callback" do
+    let(:logger) { instance_double("Logger") }
+    around do |example|
+      old_logger = Clockwork::Test.manager.config[:logger]
+      Clockwork::Test.configure { |config| config[:logger] = logger }
+      example.run
+      Clockwork::Test.configure { |config| config[:logger] = old_logger }
+    end
+
+    it "runs the defined callback" do
+      allow(logger).to receive(:info)
+      Clockwork::Test.run(file: clock_file, max_ticks: 1)
+      expect(logger).to have_received(:info).once.with("Running before tick")
+    end
+  end
+
   describe "Custom matchers" do
     subject(:clockwork) { Clockwork::Test }
 
