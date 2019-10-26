@@ -134,7 +134,7 @@ For example, with a `tick_speed` of `30.minutes` and a job that runs every `1.mi
 
 #### file
 
-The location of the clock file to test. This defaults to `"./config/clock.rb"` if a value is not provided.
+The location of the clock file to test. This defaults to `"./clock.rb"` if a value is not provided.
 
 ### Assertions Against Test Runs
 

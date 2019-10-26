@@ -46,7 +46,7 @@ module Clockwork
 
     module Methods
       def run(opts = {})
-        file = opts[:file] || "./config/clock.rb"
+        file = opts[:file] || "./clock.rb"
 
         run_opts = {
           max_ticks: opts[:max_ticks],
