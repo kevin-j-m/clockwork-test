@@ -57,7 +57,7 @@ describe Clockwork do
   after(:each) { Clockwork::Test.clear! }
 
   it "runs the job once" do
-    Clockwork::Test.run(max_ticks: 1)
+    Clockwork::Test.run(max_ticks: 1, file: "./clockwork.rb")
 
     expect(Clockwork::Test.ran_job?("Run a job")).to be_truthy
     expect(Clockwork::Test.times_run("Run a job")).to eq 1
@@ -69,7 +69,7 @@ describe Clockwork do
     end_time = Time.new(2015, 11, 2, 3, 0, 0)
 
     Clockwork::Test.run(start_time: start_time, end_time: end_time, tick_speed:
-      1.minute)
+      1.minute, file: "./clockwork.rb")
 
     expect(Clockwork::Test.times_run("Run a job")).to eq 60
   end
@@ -77,7 +77,7 @@ describe Clockwork do
   describe "RSpec Custom Matcher" do
     subject(:clockwork) { Clockwork::Test }
 
-    before { Clockwork::Test.run(max_ticks: 1) }
+    before { Clockwork::Test.run(max_ticks: 1, file: "./clockwork.rb") }
 
     it { should have_run("Run a job") }
     it { should have_run("Run a job").once }
