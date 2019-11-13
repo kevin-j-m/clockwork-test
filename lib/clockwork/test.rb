@@ -19,6 +19,11 @@ module Clockwork
       ::Clockwork::Test.manager.configure(&block)
     end
 
+    def handler(&block)
+      ::Clockwork.manager.handler(&block)
+      ::Clockwork::Test.manager.handler(&block)
+    end
+
     def on(event, options={}, &block)
       ::Clockwork.manager.on(event, options, &block)
       ::Clockwork::Test.manager.on(event, options, &block)
