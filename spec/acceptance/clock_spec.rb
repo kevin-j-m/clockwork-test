@@ -111,6 +111,17 @@ describe "Clockwork" do
     end
   end
 
+  describe "Run with no custom block" do
+    subject(:clockwork) { Clockwork::Test }
+
+    before(:each) { Clockwork::Test.run(clock_opts) }
+    after(:each) { Clockwork::Test.clear! }
+
+    let(:clock_opts) { { file: clock_file, max_ticks: 1, tick_speed: 1.hour } }
+
+    it { should have_run("JobNamePassedToTheHandler").once }
+  end
+
   if Gem::Version.new("2.0.2") < Gem::Version.new(Gem.loaded_specs["clockwork"].version)
     describe "Runs when skip_first_run is specified" do
       subject(:clockwork) { Clockwork::Test }
