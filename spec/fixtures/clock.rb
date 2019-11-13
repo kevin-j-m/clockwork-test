@@ -26,4 +26,6 @@ module Clockwork
   every(1.hour, "Run at 10 past the hour", at: "**:10") do
     "Run at 10 past the hour"
   end
+
+  every(1.hour, "JobNamePassedToTheHandler")
 end
