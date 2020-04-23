@@ -8,7 +8,7 @@ GIT
 PATH
   remote: ..
   specs:
-    clockwork-test (0.3.0)
+    clockwork-test (0.4.0)
       clockwork
       timecop
 
@@ -72,4 +72,4 @@ DEPENDENCIES
   rspec-its
 
 BUNDLED WITH
-   1.16.2
+   1.17.3

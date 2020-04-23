@@ -1,4 +1,7 @@
 ## Current release (in development)
+
+## 0.4.0 [2020-04-23]
+
 * Support clockwork callbacks [#34] (https://github.com/kevin-j-m/clockwork-test/pull/34)
 
   *Rahul Agrawal*
