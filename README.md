@@ -1,6 +1,6 @@
 # Clockwork::Test
 
-[![Build Status](https://travis-ci.org/kevin-j-m/clockwork-test.svg?branch=master)](https://travis-ci.org/kevin-j-m/clockwork-test)
+[![Build Status](https://travis-ci.org/kevin-j-m/clockwork-test.svg?branch=main)](https://travis-ci.org/kevin-j-m/clockwork-test)
 
 [Clockwork](https://rubygems.org/gems/clockwork) is a scheduler process for running scheduled jobs. These scheduled jobs are likely of critical importance to your application. You need to ensure that the jobs run when they should, as often as they should, and with the proper behavior when run.
 
