@@ -1,5 +1,9 @@
 ## Current release (in development)
 
+* Remove testing prior clockwork versions
+
+  * *Kevin Murphy*
+
 * Test against latest release version of clockwork at the time: 2.0.4
 
   * *Kevin Murphy*
