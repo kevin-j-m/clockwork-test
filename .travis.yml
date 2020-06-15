@@ -6,6 +6,9 @@ rvm:
   - 2.6.6
   - 2.7.1
   - ruby-head
+before_install:
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '< 2'
 script:
   - bundle exec rspec
 matrix:
