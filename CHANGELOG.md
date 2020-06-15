@@ -1,5 +1,9 @@
 ## Current release (in development)
 
+* Test against latest release version of clockwork at the time: 2.0.4
+
+  * *Kevin Murphy*
+
 * Test against latest ruby 2.5.x, 2.6.x, 2.7.x
 
   * *Kevin Murphy*
