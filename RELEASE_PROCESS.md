@@ -3,4 +3,4 @@
 * Update appraisal gemfiles with the new version number `appraisal install`.
 * Run tests across all clockwork versions `appraisal rake`.
 * Push the release to RubyGems `rake release`.
-* Check the RubyGems [twitter account](https://twitter.com/rubygems) to publicize the release.
+* Check the RubyGems News [twitter account](https://twitter.com/rubygemsn) to publicize the release.
