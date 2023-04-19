@@ -15,16 +15,16 @@ module Clockwork
       def run(opts = {})
         set_opts(opts)
 
-        if start_time
-          @time_altered = true
-          Timecop.travel(start_time)
+        run_block = proc do
+          yield if block_given?
+          tick_loop
         end
 
-        yield if block_given?
-
-        tick_loop
-
-        Timecop.return if @time_altered
+        if start_time
+          Timecop.travel(start_time, &run_block)
+        else
+          run_block.call
+        end
       end
 
       def ran_job?(job)
@@ -57,19 +57,15 @@ module Clockwork
       attr_reader :history
 
       def tick_loop
-        while true do
-          update_job_history
+        loop.with_index do |_, index|
+          Timecop.travel(Time.current + @tick_speed.to_i * index) do
+            return if ticks_exceeded? || time_exceeded?
 
-          tick
-          increase_time
-
-          @total_ticks += 1
-          break if ticks_exceeded? || time_exceeded?
+            update_job_history
+            tick
+            @total_ticks += 1
+          end
         end
-      end
-
-      def increase_time
-        Timecop.travel(Time.now + @tick_speed) if @tick_speed
       end
 
       def register(period, job, block, options)

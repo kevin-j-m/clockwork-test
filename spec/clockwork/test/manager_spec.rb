@@ -28,8 +28,7 @@ describe Clockwork::Test::Manager do
     context "start_time provided, while end_time is not" do
       let(:opts) { { start_time: 5.minutes.ago } }
 
-      before { Timecop.freeze }
-      after { Timecop.return }
+      around { |example| Timecop.freeze(&example) }
 
       its(:start_time) { should eq opts[:start_time] }
       its(:end_time) { should eq Time.current }
