@@ -1,5 +1,15 @@
 ## Current release (in development)
 
+## 0.5.0 [2023-04-20]
+
+* Support timecop safe mode [#39] (https://github.com/kevin-j-m/clockwork-test/pull/39)
+
+  *Felix Dumit*
+
+* Test against ruby 3.0, 3.1, 3.2
+
+  *Kevin Murphy*
+
 * Remove testing prior clockwork versions
 
   * *Kevin Murphy*
