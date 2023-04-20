@@ -14,6 +14,3 @@ script:
 matrix:
   allow_failures:
     - rvm: ruby-head
-gemfile:
-  - gemfiles/clockwork_master.gemfile
-  - gemfiles/clockwork_2_0_4.gemfile
