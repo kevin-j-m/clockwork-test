@@ -8,3 +8,5 @@ require "rspec/its"
 RSpec.configure do |config|
   config.include(Clockwork::Test::RSpec::Matchers)
 end
+
+Timecop.safe_mode = true
