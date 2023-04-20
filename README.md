@@ -1,12 +1,12 @@
 # Clockwork::Test
 
-[![Build Status](https://travis-ci.org/kevin-j-m/clockwork-test.svg?branch=main)](https://travis-ci.org/kevin-j-m/clockwork-test)
+![Build Status](https://github.com/kevin-j-m/clockwork-test/actions/workflows/test.yml/badge.svg)
 
 [Clockwork](https://rubygems.org/gems/clockwork) is a scheduler process for running scheduled jobs. These scheduled jobs are likely of critical importance to your application. You need to ensure that the jobs run when they should, as often as they should, and with the proper behavior when run.
 
 `Clockwork::Test` includes additional functionality that makes testing of your `clock.rb` file easy. This gem can help make sure that you have scheduled your events appropriately, including testing `if:` or `at:` conditions, as well as allowing you to run assertions against the code that is executed when a job is run.
 
-`Clockwork::Test` runs its test suite against various versions of ruby, which are documented in the [Travis configuration](.travis.yml).
+`Clockwork::Test` runs its test suite against various versions of ruby, which are documented in the [GitHub Actions configuration](.github/workflows/test.yml).
 
 `Clockwork::Test` does not require any specific test framework to be used with it, though all examples will use `rspec`.
 
