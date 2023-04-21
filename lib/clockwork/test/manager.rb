@@ -59,7 +59,7 @@ module Clockwork
       def tick_loop
         loop.with_index do |_, index|
           Timecop.travel(Time.current + @tick_speed.to_i * index) do
-            return if ticks_exceeded? || time_exceeded?
+            return if ticks_exceeded? || (time_exceeded? && index > 0)
 
             update_job_history
             tick
