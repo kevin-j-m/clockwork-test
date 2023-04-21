@@ -82,6 +82,15 @@ describe Clockwork::Test::Manager do
           expect(manager.total_ticks).to be > 0
         end
       end
+
+      context "with same start and end time" do
+        let(:end_time) { Time.current }
+
+        it "runs the clock once" do
+          manager.run
+          expect(manager.total_ticks).to eq 1
+        end
+      end
     end
 
     context "recording job history" do
