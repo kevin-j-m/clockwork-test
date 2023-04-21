@@ -1,8 +1,14 @@
 ## Current release (in development)
 
+## 0.5.1 [2023-04-21]
+
+* Fix error introduced in 0.5.0 so now least one clock tick occurs when starting and ending at the same time [#41](https://github.com/kevin-j-m/clockwork-test/pull/41)
+
+  *Robin Brandt*
+
 ## 0.5.0 [2023-04-20]
 
-* Support timecop safe mode [#39] (https://github.com/kevin-j-m/clockwork-test/pull/39)
+* Support timecop safe mode [#39](https://github.com/kevin-j-m/clockwork-test/pull/39)
 
   *Felix Dumit*
 
@@ -28,7 +34,7 @@
 
 ## 0.4.0 [2020-04-23]
 
-* Support clockwork callbacks [#34] (https://github.com/kevin-j-m/clockwork-test/pull/34)
+* Support clockwork callbacks [#34](https://github.com/kevin-j-m/clockwork-test/pull/34)
 
   *Rahul Agrawal*
 
